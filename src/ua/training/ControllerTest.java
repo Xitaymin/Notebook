@@ -15,21 +15,26 @@ public class ControllerTest extends Controller {
     private String[] invalidSurnameExamples;
 
     @Before
-    public void setUp() throws Exception {
-        validSurnameExamples = new String[]{"Нечуй-Левицький"};
-        invalidSurnameExamples = new String[]{"A", "smith", "b0nd"};
-
+    public void prepareValidData() throws Exception {
+        validSurnameExamples = new String[]{"Єненков","Нечуй-Левицький","О'Коннор","Smith"};
     }
 
     @Test
-    public void testCheckIfUserInputValid() {
-        for (String s : validSurnameExamples
-        ) {
-            Assert.assertTrue(checkIfUserInputValid(RegexContainer.SURNAME, s));}
-            for (String s : invalidSurnameExamples
-            ) {
-                Assert.assertFalse(checkIfUserInputValid(RegexContainer.SURNAME, s));
-            }
-
+    public void testIfValidSurnameAccepted() {
+        for (String s : validSurnameExamples) {
+            Assert.assertTrue(checkIfUserInputValid(RegexContainer.SURNAME, s));
         }
     }
+
+    @Before
+    public void prepareInvalidData() {
+        invalidSurnameExamples = new String[]{"Ьсин","","A","B0nd"};
+    }
+
+    @Test
+    public void testIfInvalidSurnameRejected() {
+        for (String s : invalidSurnameExamples) {
+            Assert.assertFalse(checkIfUserInputValid(RegexContainer.SURNAME, s));
+        }
+    }
+}
