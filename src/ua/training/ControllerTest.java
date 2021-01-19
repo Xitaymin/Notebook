@@ -11,12 +11,15 @@ public class ControllerTest extends Controller {
     private String[] validPhoneNumbers;
     private String[] validEmailExamples;
     private String[] invalidEmailExamples;
+    private String[] validNicknameExamples;
+    private String[] invalidNicknameExamples;
 
     @Before
     public void prepareValidSurnames() throws Exception {
-        validSurnameExamples = new String[]{"Єненков", "Нечуй-Левицький", "О'Коннор", "Smith"};
+        validSurnameExamples = new String[]{"Єненков", "Нечуй-Левицький", "О'Коннор", "Кам'янець Подільський"};
     }
 
+    //todo make symbols like . or ' or space not repeatable one after another
     @Test
     public void testIfValidSurnameAccepted() {
         checkIfEveryValidItemAccepted(validSurnameExamples, RegexContainer.SURNAME);
@@ -24,7 +27,7 @@ public class ControllerTest extends Controller {
 
     @Before
     public void prepareInvalidSurnames() {
-        invalidSurnameExamples = new String[]{"Ьсин", "", "A", "B0nd"};
+        invalidSurnameExamples = new String[]{"", "A", "B0nd","малыш"};
     }
 
     @Test
@@ -54,12 +57,43 @@ public class ControllerTest extends Controller {
 
     @Before
     public void prepareValidEmails(){
-        validEmailExamples = new String[]{"ivanov@inbox.ru"};
+        validEmailExamples = new String[]{"ivanov@inbox.ru","1234abc@mail.ru","p.petrov@ukr.net"};
     }
 
     @Test
     public void testIfValidEmailAccepted(){
         checkIfEveryValidItemAccepted(validEmailExamples,RegexContainer.EMAIL);
+    }
+
+    @Before
+    public void prepareInvalidEmails(){
+        invalidEmailExamples = new String[]{"@domainsample.com","johndoedomainsample.com","john.doe@.net","john.doe43@domainsample",".badguy@gmail.com","&geekforce@gmai.com",
+        //"badguy..2@gmail.com"
+        };
+    }
+    @Test
+    public void testIfInvalidEmailRejected(){
+        checkIfEveryInvalidItemRejected(invalidEmailExamples,RegexContainer.EMAIL);
+    }
+
+    @Before
+    public void prepareValidNickname(){
+        validNicknameExamples = new String[]{"BadJack","hack-ker","cool_guy"};
+    }
+
+    @Test
+    public void testIfValidNicknameAccepted(){
+        checkIfEveryValidItemAccepted(validNicknameExamples,RegexContainer.NICKNAME);
+    }
+
+    @Before
+    public void prepareInvalidNicknames(){
+        invalidNicknameExamples = new String[]{"Nice nick"
+        };
+    }
+    @Test
+    public void testIfInvalidNicknameRejected(){
+        checkIfEveryInvalidItemRejected(invalidNicknameExamples,RegexContainer.NICKNAME);
     }
 
     public void checkIfEveryValidItemAccepted(String[] validData, String regex) {
