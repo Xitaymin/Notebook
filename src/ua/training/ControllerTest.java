@@ -13,9 +13,10 @@ public class ControllerTest extends Controller {
     private String[] invalidEmailExamples;
     private String[] validNicknameExamples;
     private String[] invalidNicknameExamples;
+    private String[] validHouseNumbersExamples;
 
     @Before
-    public void prepareValidSurnames() throws Exception {
+    public void prepareValidSurnames() {
         validSurnameExamples = new String[]{"Єненков", "Нечуй-Левицький", "О'Коннор", "Кам'янець Подільський"};
     }
 
@@ -91,10 +92,23 @@ public class ControllerTest extends Controller {
         invalidNicknameExamples = new String[]{"Nice nick"
         };
     }
+
     @Test
     public void testIfInvalidNicknameRejected(){
         checkIfEveryInvalidItemRejected(invalidNicknameExamples,RegexContainer.NICKNAME);
     }
+
+    @Before
+    public void prepareValidHouseNumbers(){
+        validHouseNumbersExamples = new String[]{"118в","240/3","25","205/34"};
+    }
+
+    @Test
+    public void testIfValidHouseNumbersAccepted(){
+        checkIfEveryValidItemAccepted(validHouseNumbersExamples,RegexContainer.HOUSE);
+    }
+
+
 
     public void checkIfEveryValidItemAccepted(String[] validData, String regex) {
         for (String item : validData) {
