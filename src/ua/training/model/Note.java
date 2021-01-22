@@ -15,7 +15,11 @@ public class Note {
     private String cellPhone2; //may be absent
     private String email;
     private String skype;
-    private Adress adress;
+    private String index;
+    private String city;
+    private String street;
+    private String homeNumber;
+    private String apartmentNumber;
     private String formalizedAdress;
     private Date noteInputDate;
     private Date lastModificationDate;
@@ -48,8 +52,11 @@ public class Note {
         return initials;
     }
 
-    public void setInitials(String initials) {
-        this.initials = initials;
+    public void setInitials() {
+        String firstNameLetter = this.getName().substring(0,1);
+        String divider1 = " ";
+        String divider2 = ".";
+        this.initials = concatenateStrings(false,this.getSurname(),divider1,firstNameLetter,divider2);
     }
 
     public String getNick() {
@@ -116,28 +123,21 @@ public class Note {
         this.skype = skype;
     }
 
-    public Adress getAdress() {
-        return adress;
-    }
-
-    public void setAdress(Adress adress) {
-        this.adress = adress;
-    }
-
     public String getFormalizedAdress() {
         return formalizedAdress;
     }
 
-    public void setFormalizedAdress(String formalizedAdress) {
-        this.formalizedAdress = formalizedAdress;
+    public void setFormalizedAdress() {
+        this.formalizedAdress = concatenateStrings(true,this.getIndex(),this.getCity(),
+                this.getStreet(),this.getHomeNumber(),this.getApartmentNumber());
     }
 
     public Date getNoteInputDate() {
         return noteInputDate;
     }
 
-    public void setNoteInputDate(Date noteInputDate) {
-        this.noteInputDate = noteInputDate;
+    public void setNoteInputDate() {
+
     }
 
     public Date getLastModificationDate() {
@@ -147,4 +147,83 @@ public class Note {
     public void setLastModificationDate(Date lastModificationDate) {
         this.lastModificationDate = lastModificationDate;
     }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHomeNumber() {
+        return homeNumber;
+    }
+
+    public void setHomeNumber(String homeNumber) {
+        this.homeNumber = homeNumber;
+    }
+
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", initials='" + initials + '\'' +
+                ", nick='" + nick + '\'' +
+                ", comment='" + comment + '\'' +
+                ", group=" + group +
+                ", homePhone='" + homePhone + '\'' +
+                ", cellPhone='" + cellPhone + '\'' +
+                ", cellPhone2='" + cellPhone2 + '\'' +
+                ", email='" + email + '\'' +
+                ", skype='" + skype + '\'' +
+                ", index='" + index + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", homeNumber='" + homeNumber + '\'' +
+                ", apartmentNumber='" + apartmentNumber + '\'' +
+                ", formalizedAdress='" + formalizedAdress + '\'' +
+                ", noteInputDate=" + noteInputDate +
+                ", lastModificationDate=" + lastModificationDate +
+                '}';
+    }
+
+    private String concatenateStrings(boolean addSpace, String ...strings) {
+        StringBuilder sb = new StringBuilder();
+        String option = "";
+        if(addSpace){option = " ";}
+        for (String s:strings) {
+            sb.append(s);
+            sb.append(option);
+        }
+        return sb.toString();
+    }
+
+
 }

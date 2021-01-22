@@ -14,6 +14,7 @@ public class ControllerTest extends Controller {
     private String[] validNicknameExamples;
     private String[] invalidNicknameExamples;
     private String[] validHouseNumbersExamples;
+    private String[] validCellPhone2Examples;
 
     @Before
     public void prepareValidSurnames() {
@@ -108,8 +109,15 @@ public class ControllerTest extends Controller {
         checkIfEveryValidItemAccepted(validHouseNumbersExamples,RegexContainer.HOUSE);
     }
 
+    @Before
+    public void prepareValidCellPhone2Numbers(){
+        validCellPhone2Examples = new String[]{"+380966374221"," ",""};
+    }
 
-
+    @Test
+    public void testIfValidCellPhone2NumbersAccepted(){
+        checkIfEveryValidItemAccepted(validCellPhone2Examples,RegexContainer.CELL_PHONE2);
+    }
     public void checkIfEveryValidItemAccepted(String[] validData, String regex) {
         for (String item : validData) {
             Assert.assertTrue(checkIfUserInputValid(regex, item));
