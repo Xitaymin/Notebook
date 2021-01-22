@@ -1,6 +1,8 @@
-package ua.training;
+package ua.training.controller;
 
+import ua.training.model.Group;
 import ua.training.model.Note;
+import ua.training.model.Notebook;
 import ua.training.view.View;
 
 import java.beans.Statement;
@@ -11,14 +13,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Controller {
+
     private Scanner scanner;
     private Map<String, String> noteFields;
     private View view;
     private Note note;
+    private Notebook notebook;
 
-    public void initial() {
+    public Controller(){
+        this.notebook = new Notebook();
         noteFields = new LinkedHashMap<>();
-        noteFields.put("Surname",RegexContainer.SURNAME);
+        noteFields.put("Surname", RegexContainer.SURNAME);
         noteFields.put("Name",RegexContainer.NAME);
         noteFields.put("Patronymic",RegexContainer.PATRONYMIC);
         noteFields.put("Nick",RegexContainer.NICKNAME);
@@ -35,11 +40,20 @@ public class Controller {
         noteFields.put("ApartmentNumber",RegexContainer.APARTMENT);
 
         scanner = new Scanner(System.in);
-        note = new Note();
         view = new View();
     }
 
-    public void processUserInput() {
+    public void makeNote() {
+        note = new Note();
+        processUserInput();
+        note.setGroup(Group.ES);
+        note.setInitials();
+        note.setFormalizedAdress();
+        note.setLastModificationDate();
+        notebook.addNote(note);
+    }
+
+    private void processUserInput() {
         String userInput;
         boolean isInputProcessed;
         for (String field:noteFields.keySet()) {
@@ -54,17 +68,10 @@ public class Controller {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    System.out.println(note.toString());
                     isInputProcessed = true;
                 }
             }
         }
-    }
-    public void createNote(){
-        note.setInitials();
-        note.setFormalizedAdress();
-        note.setNoteInputDate();
-        System.out.println(note.toString());
     }
 
     private void askUserEnterField(String fieldName){
@@ -79,5 +86,9 @@ public class Controller {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(userInput);
         return matcher.matches();
+    }
+
+    public Notebook getNotebook() {
+        return notebook;
     }
 }

@@ -1,4 +1,4 @@
-package ua.training;
+package ua.training.controller;
 
 public interface RegexContainer {
      String SURNAME = "^[^а-яЭЫЪ][А-ЩЬЮЯа-щьюяІЇЄіїє'\\s-]{1,20}$";

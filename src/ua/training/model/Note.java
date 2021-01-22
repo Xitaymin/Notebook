@@ -1,15 +1,16 @@
 package ua.training.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Note {
+
     private String surname;
     private String name;
     private String patronymic;
     private String initials;
     private String nick;
     private String comment;
-    private Enum group;
+    private Enum<Group> group;
     private String homePhone;
     private String cellPhone;
     private String cellPhone2; //may be absent
@@ -21,8 +22,12 @@ public class Note {
     private String homeNumber;
     private String apartmentNumber;
     private String formalizedAdress;
-    private Date noteInputDate;
-    private Date lastModificationDate;
+    private final LocalDate noteInputDate;
+    private LocalDate lastModificationDate;
+
+    public Note() {
+        this.noteInputDate = LocalDate.now();
+    }
 
     public String getSurname() {
         return surname;
@@ -30,6 +35,7 @@ public class Note {
 
     public void setSurname(String surname) {
         this.surname = surname;
+        setLastModificationDate();
     }
 
     public String getName() {
@@ -38,6 +44,7 @@ public class Note {
 
     public void setName(String name) {
         this.name = name;
+        setLastModificationDate();
     }
 
     public String getPatronymic() {
@@ -46,6 +53,7 @@ public class Note {
 
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
+        setLastModificationDate();
     }
 
     public String getInitials() {
@@ -57,6 +65,7 @@ public class Note {
         String divider1 = " ";
         String divider2 = ".";
         this.initials = concatenateStrings(false,this.getSurname(),divider1,firstNameLetter,divider2);
+        setLastModificationDate();
     }
 
     public String getNick() {
@@ -65,6 +74,7 @@ public class Note {
 
     public void setNick(String nick) {
         this.nick = nick;
+        setLastModificationDate();
     }
 
     public String getComment() {
@@ -73,14 +83,16 @@ public class Note {
 
     public void setComment(String comment) {
         this.comment = comment;
+        setLastModificationDate();
     }
 
-    public Enum getGroup() {
+    public Enum<Group> getGroup() {
         return group;
     }
 
-    public void setGroup(Enum group) {
+    public void setGroup(Enum<Group> group) {
         this.group = group;
+        setLastModificationDate();
     }
 
     public String getHomePhone() {
@@ -89,6 +101,7 @@ public class Note {
 
     public void setHomePhone(String homePhone) {
         this.homePhone = homePhone;
+        setLastModificationDate();
     }
 
     public String getCellPhone() {
@@ -97,6 +110,7 @@ public class Note {
 
     public void setCellPhone(String cellPhone) {
         this.cellPhone = cellPhone;
+        setLastModificationDate();
     }
 
     public String getCellPhone2() {
@@ -105,6 +119,7 @@ public class Note {
 
     public void setCellPhone2(String cellPhone2) {
         this.cellPhone2 = cellPhone2;
+        setLastModificationDate();
     }
 
     public String getEmail() {
@@ -113,6 +128,7 @@ public class Note {
 
     public void setEmail(String email) {
         this.email = email;
+        setLastModificationDate();
     }
 
     public String getSkype() {
@@ -121,6 +137,7 @@ public class Note {
 
     public void setSkype(String skype) {
         this.skype = skype;
+        setLastModificationDate();
     }
 
     public String getFormalizedAdress() {
@@ -130,22 +147,19 @@ public class Note {
     public void setFormalizedAdress() {
         this.formalizedAdress = concatenateStrings(true,this.getIndex(),this.getCity(),
                 this.getStreet(),this.getHomeNumber(),this.getApartmentNumber());
+        setLastModificationDate();
     }
 
-    public Date getNoteInputDate() {
+    public LocalDate getNoteInputDate() {
         return noteInputDate;
     }
 
-    public void setNoteInputDate() {
-
-    }
-
-    public Date getLastModificationDate() {
+    public LocalDate getLastModificationDate() {
         return lastModificationDate;
     }
 
-    public void setLastModificationDate(Date lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
+    public void setLastModificationDate() {
+        this.lastModificationDate = LocalDate.now();
     }
 
     public String getIndex() {
@@ -154,6 +168,7 @@ public class Note {
 
     public void setIndex(String index) {
         this.index = index;
+        setLastModificationDate();
     }
 
     public String getCity() {
@@ -162,6 +177,7 @@ public class Note {
 
     public void setCity(String city) {
         this.city = city;
+        setLastModificationDate();
     }
 
     public String getStreet() {
@@ -170,6 +186,7 @@ public class Note {
 
     public void setStreet(String street) {
         this.street = street;
+        setLastModificationDate();
     }
 
     public String getHomeNumber() {
@@ -178,6 +195,7 @@ public class Note {
 
     public void setHomeNumber(String homeNumber) {
         this.homeNumber = homeNumber;
+        setLastModificationDate();
     }
 
     public String getApartmentNumber() {
@@ -186,6 +204,7 @@ public class Note {
 
     public void setApartmentNumber(String apartmentNumber) {
         this.apartmentNumber = apartmentNumber;
+        setLastModificationDate();
     }
 
     @Override
@@ -224,6 +243,4 @@ public class Note {
         }
         return sb.toString();
     }
-
-
 }

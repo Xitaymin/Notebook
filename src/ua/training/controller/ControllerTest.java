@@ -1,4 +1,4 @@
-package ua.training;
+package ua.training.controller;
 
 import org.junit.Assert;
 import org.junit.Before;
