@@ -60,6 +60,9 @@ public class Note {
         return initials;
     }
 
+    /**
+     * Creates String which consist of surname, space, first letter of the name and dot.
+     */
     public void setInitials() {
         String firstNameLetter = this.getName().substring(0,1);
         String divider1 = " ";
@@ -144,7 +147,11 @@ public class Note {
         return formalizedAdress;
     }
 
-    public void setFormalizedAdress() {
+    /**
+     * Creates String that provides summary address information.
+     * String contains index, city name, street name, house number and apartment number separated by space.
+     */
+    public void setFormalizedAddress() {
         this.formalizedAdress = concatenateStrings(true,this.getIndex(),this.getCity(),
                 this.getStreet(),this.getHomeNumber(),this.getApartmentNumber());
         setLastModificationDate();
@@ -236,7 +243,7 @@ public class Note {
     private String concatenateStrings(boolean addSpace, String ...strings) {
         StringBuilder sb = new StringBuilder();
         String option = "";
-        if(addSpace){option = " ";}
+        if(addSpace){option = " ";} //if first argument true space after every input string will be added
         for (String s:strings) {
             sb.append(s);
             sb.append(option);

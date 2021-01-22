@@ -20,8 +20,13 @@ public class Controller {
     private Note note;
     private Notebook notebook;
 
+
     public Controller(){
         this.notebook = new Notebook();
+        /*
+        noteFields map contains pairs of note's field name and appropriate regex name. This map is created for linking information which is used for
+        automatically filling of note fields.
+         */
         noteFields = new LinkedHashMap<>();
         noteFields.put("Surname", RegexContainer.SURNAME);
         noteFields.put("Name",RegexContainer.NAME);
@@ -43,12 +48,15 @@ public class Controller {
         view = new View();
     }
 
+    /**
+     * Creates new note, fills it with data received from user and adds it into notebook.
+     */
     public void makeNote() {
         note = new Note();
         processUserInput();
         note.setGroup(Group.ES);
         note.setInitials();
-        note.setFormalizedAdress();
+        note.setFormalizedAddress();
         note.setLastModificationDate();
         notebook.addNote(note);
     }
@@ -56,12 +64,16 @@ public class Controller {
     private void processUserInput() {
         String userInput;
         boolean isInputProcessed;
-        for (String field:noteFields.keySet()) {
+        for (String field:noteFields.keySet()) {//for each note fields
             isInputProcessed = false;
             while (!isInputProcessed){
                 askUserEnterField(field);
                 userInput = getUserInput(scanner);
                 if (checkIfUserInputValid(noteFields.get(field), userInput)) {
+                    /*
+                    if user input matches regex that we got from regex container by name from noteField map for certain field name
+                    valid data will be transferred to the setter which name is set + current field name
+                     */
                     Statement statement = new Statement(note, "set" + field, new Object[]{userInput});
                     try {
                         statement.execute();
