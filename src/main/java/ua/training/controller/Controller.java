@@ -6,19 +6,19 @@ import ua.training.model.Notebook;
 import ua.training.view.View;
 
 import java.beans.Statement;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Controller {
 
     private Scanner scanner;
-    private Map<String, String> noteFields;
+    private Map<Field, String> noteFields;
     private View view;
     private Note note;
     private Notebook notebook;
+    private Locale locale = new Locale("ua");
+    private ResourceBundle regexBundle = ResourceBundle.getBundle("regexes",locale);
 
 
     public Controller(){
@@ -27,22 +27,23 @@ public class Controller {
         noteFields map contains pairs of note's field name and appropriate regex name. This map is created for linking information which is used for
         automatically filling of note fields.
          */
+
         noteFields = new LinkedHashMap<>();
-        noteFields.put("Surname", RegexContainer.SURNAME);
-        noteFields.put("Name",RegexContainer.NAME);
-        noteFields.put("Patronymic",RegexContainer.PATRONYMIC);
-        noteFields.put("Nick",RegexContainer.NICKNAME);
-        noteFields.put("Comment",RegexContainer.COMMENT);
-        noteFields.put("HomePhone",RegexContainer.PHONE);
-        noteFields.put("CellPhone",RegexContainer.PHONE);
-        noteFields.put("CellPhone2",RegexContainer.CELL_PHONE2);
-        noteFields.put("Email",RegexContainer.EMAIL);
-        noteFields.put("Skype",RegexContainer.SKYPE);
-        noteFields.put("Index",RegexContainer.INDEX);
-        noteFields.put("City",RegexContainer.CITY);
-        noteFields.put("Street",RegexContainer.STREET);
-        noteFields.put("HomeNumber",RegexContainer.HOUSE);
-        noteFields.put("ApartmentNumber",RegexContainer.APARTMENT);
+        noteFields.put(new Field("Surname",RegexContainer.SURNAME), View.REQUEST_SURNAME_INPUT);
+        noteFields.put(new Field("Name",RegexContainer.NAME),View.REQUEST_NAME_INPUT);
+        noteFields.put(new Field("Patronymic",RegexContainer.PATRONYMIC),View.REQUEST_PATRONYMIC_INPUT);
+        noteFields.put(new Field("Nick",RegexContainer.NICKNAME),View.REQUEST_NICKNAME_INPUT);
+        noteFields.put(new Field("Comment",RegexContainer.COMMENT),View.REQUEST_COMMENT_INPUT);
+        noteFields.put(new Field("HomePhone",RegexContainer.PHONE),View.REQUEST_PHONE_NUMBER_INPUT);
+        noteFields.put(new Field("CellPhone",RegexContainer.PHONE),View.REQUEST_CELL_PHONE_NUMBER_INPUT);
+        noteFields.put(new Field("CellPhone2",RegexContainer.CELL_PHONE2),View.REQUEST_CELL_PHONE2_NUMBER_INPUT);
+        noteFields.put(new Field("Email",RegexContainer.EMAIL),View.REQUEST_EMAIL_INPUT);
+        noteFields.put(new Field("Skype",RegexContainer.SKYPE),View.REQUEST_SKYPE_INPUT);
+        noteFields.put(new Field("Index",RegexContainer.INDEX),View.REQUEST_INDEX_INPUT);
+        noteFields.put(new Field("City",RegexContainer.CITY),View.REQUEST_CITY_INPUT);
+        noteFields.put(new Field("Street",RegexContainer.STREET),View.REQUEST_STREET_INPUT);
+        noteFields.put(new Field("HomeNumber",RegexContainer.HOUSE),View.REQUEST_HOUSE_NUMBER_INPUT);
+        noteFields.put(new Field("ApartmentNumber",RegexContainer.APARTMENT),View.REQUEST_APARTMENT_NUMBER_INPUT);
 
         scanner = new Scanner(System.in);
         view = new View();
@@ -64,17 +65,17 @@ public class Controller {
     private void processUserInput() {
         String userInput;
         boolean isInputProcessed;
-        for (String field:noteFields.keySet()) {//for each note fields
+        for (Field field:noteFields.keySet()) {//for each note fields
             isInputProcessed = false;
             while (!isInputProcessed){
-                askUserEnterField(field);
+                askUserEnterField(noteFields.get(field));
                 userInput = getUserInput(scanner);
-                if (checkIfUserInputValid(noteFields.get(field), userInput)) {
+                if (checkIfUserInputValid(regexBundle.getString(field.getFieldRegexp()), userInput)) {
                     /*
                     if user input matches regex that we got from regex container by name from noteField map for certain field name
                     valid data will be transferred to the setter which name is set + current field name
                      */
-                    Statement statement = new Statement(note, "set" + field, new Object[]{userInput});
+                    Statement statement = new Statement(note, "set" + field.getCapitalizedFieldName(), new Object[]{userInput});
                     try {
                         statement.execute();
                     } catch (Exception e) {
@@ -86,8 +87,8 @@ public class Controller {
         }
     }
 
-    private void askUserEnterField(String fieldName){
-        view.printMessage(View.REQUEST_INPUT,fieldName);
+    private void askUserEnterField(String message){
+        view.printLocalizedMessage(message);
     }
 
     private String getUserInput(Scanner scanner) {

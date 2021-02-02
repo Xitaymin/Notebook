@@ -12,4 +12,10 @@ public class Main {
             System.out.println(note);
         }
     }
+
+    //todo check regex for en locale
+    //todo patronymic for en locale optional
+    //todo phone regex should be appropriate for other countries
+    //todo index regex should be appropriate for other countries
+    //
 }

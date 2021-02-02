@@ -2,7 +2,11 @@ package ua.training.controller;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class ControllerTest extends Controller {
     private String[] validSurnameExamples;
@@ -15,6 +19,12 @@ public class ControllerTest extends Controller {
     private String[] invalidNicknameExamples;
     private String[] validHouseNumbersExamples;
     private String[] validCellPhone2Examples;
+    private static ResourceBundle regexpBundle;
+
+    @BeforeClass
+    public static void setResourceBundle(){
+        regexpBundle = ResourceBundle.getBundle("regexes",new Locale("ua"));
+    }
 
     @Before
     public void prepareValidSurnames() {
@@ -24,7 +34,7 @@ public class ControllerTest extends Controller {
     //todo make symbols like . or ' or space not repeatable one after another
     @Test
     public void testIfValidSurnameAccepted() {
-        checkIfEveryValidItemAccepted(validSurnameExamples, RegexContainer.SURNAME);
+        checkIfEveryValidItemAccepted(validSurnameExamples, ControllerTest.regexpBundle.getString(RegexContainer.SURNAME));
     }
 
     @Before
@@ -101,12 +111,12 @@ public class ControllerTest extends Controller {
 
     @Before
     public void prepareValidHouseNumbers(){
-        validHouseNumbersExamples = new String[]{"118в","240/3","25","205/34"};
+        validHouseNumbersExamples = new String[]{"118а","240/3","25","205/34"};
     }
 
     @Test
     public void testIfValidHouseNumbersAccepted(){
-        checkIfEveryValidItemAccepted(validHouseNumbersExamples,RegexContainer.HOUSE);
+        checkIfEveryValidItemAccepted(validHouseNumbersExamples,regexpBundle.getString(RegexContainer.HOUSE));
     }
 
     @Before
