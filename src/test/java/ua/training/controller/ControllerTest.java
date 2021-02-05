@@ -2,79 +2,69 @@ package ua.training.controller;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ControllerTest extends Controller {
-    private String[] validSurnameExamples;
-    private String[] invalidSurnameExamples;
+    private String[] validUkrainianSurnameExamples;
+    private String[] invalidUkrainianSurnameExamples;
     private String[] validCommentsExamples;
     private String[] validPhoneNumbers;
     private String[] validEmailExamples;
     private String[] invalidEmailExamples;
     private String[] validNicknameExamples;
     private String[] invalidNicknameExamples;
-    private String[] validHouseNumbersExamples;
+    private String[] validUkrainianHouseNumbersExamples;
     private String[] validCellPhone2Examples;
-    private static ResourceBundle regexpBundle;
-
-    @BeforeClass
-    public static void setResourceBundle(){
-        regexpBundle = ResourceBundle.getBundle("regexes",new Locale("ua"));
-    }
+    private  ResourceBundle uaRegexpBundle = ResourceBundle.getBundle("regexes", new Locale("ua"));
+    private  ResourceBundle enRegexpBundle = ResourceBundle.getBundle("regexes", new Locale("ua"));
 
     @Before
-    public void prepareValidSurnames() {
-        validSurnameExamples = new String[]{"Єненков", "Нечуй-Левицький", "О'Коннор", "Кам'янець Подільський"};
+    public void prepareValidUkrainianSurnames() {
+        validUkrainianSurnameExamples = new String[]{"Єненков", "Нечуй-Левицький", "О'Коннор"};
     }
-
     //todo make symbols like . or ' or space not repeatable one after another
     @Test
-    public void testIfValidSurnameAccepted() {
-        checkIfEveryValidItemAccepted(validSurnameExamples, ControllerTest.regexpBundle.getString(RegexContainer.SURNAME));
+    public void testIfValidUkrainianSurnameAccepted() {
+        checkIfEveryValidItemAccepted(validUkrainianSurnameExamples, uaRegexpBundle.getString(RegexContainer.SURNAME));
     }
 
     @Before
-    public void prepareInvalidSurnames() {
-        invalidSurnameExamples = new String[]{"", "A", "B0nd","малыш"};
+    public void prepareInvalidUkrainianSurnames() {
+        invalidUkrainianSurnameExamples = new String[]{"", "A", "B0nd","малыш"};
     }
-
     @Test
-    public void testIfInvalidSurnameRejected() {
-        checkIfEveryInvalidItemRejected(invalidSurnameExamples, RegexContainer.SURNAME);
+    public void testIfInvalidUkrainianSurnameRejected() {
+        checkIfEveryInvalidItemRejected(invalidUkrainianSurnameExamples, uaRegexpBundle.getString(RegexContainer.SURNAME));
     }
 
     @Before
     public void prepareValidComment() {
         validCommentsExamples = new String[]{"Comment12", "Комментарий"};
     }
-
     @Test
     public void testIfValidCommentAccepted() {
-    checkIfEveryValidItemAccepted(validCommentsExamples,RegexContainer.COMMENT);
+    checkIfEveryValidItemAccepted(validCommentsExamples,uaRegexpBundle.getString(RegexContainer.COMMENT));
     }
 
     @Before
     public void prepareValidPhoneNumbers() {
-        validPhoneNumbers = new String[]{"+380965841732"};
+        validPhoneNumbers = new String[]{"+380965841732", "+15554555648"};
     }
-
     @Test
     public void testIfValidPhoneNumberAccepted(){
-        checkIfEveryValidItemAccepted(validPhoneNumbers,RegexContainer.PHONE);
+        checkIfEveryValidItemAccepted(validPhoneNumbers,uaRegexpBundle.getString(RegexContainer.PHONE));
     }
 
     @Before
     public void prepareValidEmails(){
         validEmailExamples = new String[]{"ivanov@inbox.ru","1234abc@mail.ru","p.petrov@ukr.net"};
     }
-
     @Test
     public void testIfValidEmailAccepted(){
-        checkIfEveryValidItemAccepted(validEmailExamples,RegexContainer.EMAIL);
+        checkIfEveryValidItemAccepted(validEmailExamples,uaRegexpBundle.getString(RegexContainer.EMAIL));
     }
 
     @Before
@@ -85,17 +75,16 @@ public class ControllerTest extends Controller {
     }
     @Test
     public void testIfInvalidEmailRejected(){
-        checkIfEveryInvalidItemRejected(invalidEmailExamples,RegexContainer.EMAIL);
+        checkIfEveryInvalidItemRejected(invalidEmailExamples,uaRegexpBundle.getString(RegexContainer.EMAIL));
     }
 
     @Before
     public void prepareValidNickname(){
         validNicknameExamples = new String[]{"BadJack","hack-ker","cool_guy"};
     }
-
     @Test
     public void testIfValidNicknameAccepted(){
-        checkIfEveryValidItemAccepted(validNicknameExamples,RegexContainer.NICKNAME);
+        checkIfEveryValidItemAccepted(validNicknameExamples,uaRegexpBundle.getString(RegexContainer.NICKNAME));
     }
 
     @Before
@@ -103,31 +92,29 @@ public class ControllerTest extends Controller {
         invalidNicknameExamples = new String[]{"Nice nick"
         };
     }
-
     @Test
     public void testIfInvalidNicknameRejected(){
-        checkIfEveryInvalidItemRejected(invalidNicknameExamples,RegexContainer.NICKNAME);
+        checkIfEveryInvalidItemRejected(invalidNicknameExamples,uaRegexpBundle.getString(RegexContainer.NICKNAME));
     }
 
     @Before
-    public void prepareValidHouseNumbers(){
-        validHouseNumbersExamples = new String[]{"118а","240/3","25","205/34"};
+    public void prepareValidUkrainianHouseNumbers(){
+        validUkrainianHouseNumbersExamples = new String[]{"118а","240/3","25","205/34"};
     }
-
     @Test
-    public void testIfValidHouseNumbersAccepted(){
-        checkIfEveryValidItemAccepted(validHouseNumbersExamples,regexpBundle.getString(RegexContainer.HOUSE));
+    public void testIfValidUkrainianHouseNumbersAccepted(){
+        checkIfEveryValidItemAccepted(validUkrainianHouseNumbersExamples, uaRegexpBundle.getString(RegexContainer.HOUSE));
     }
 
     @Before
     public void prepareValidCellPhone2Numbers(){
         validCellPhone2Examples = new String[]{"+380966374221"," ",""};
     }
-
     @Test
     public void testIfValidCellPhone2NumbersAccepted(){
-        checkIfEveryValidItemAccepted(validCellPhone2Examples,RegexContainer.CELL_PHONE2);
+        checkIfEveryValidItemAccepted(validCellPhone2Examples,uaRegexpBundle.getString(RegexContainer.CELL_PHONE2));
     }
+
     public void checkIfEveryValidItemAccepted(String[] validData, String regex) {
         for (String item : validData) {
             Assert.assertTrue(checkIfUserInputValid(regex, item));
