@@ -16,10 +16,11 @@ public class ControllerTest extends Controller {
     private String[] invalidEmailExamples;
     private String[] validNicknameExamples;
     private String[] invalidNicknameExamples;
+    private String[] validEnglishPatronymicExamples;
     private String[] validUkrainianHouseNumbersExamples;
     private String[] validCellPhone2Examples;
     private  ResourceBundle uaRegexpBundle = ResourceBundle.getBundle("regexes", new Locale("ua"));
-    private  ResourceBundle enRegexpBundle = ResourceBundle.getBundle("regexes", new Locale("ua"));
+    private  ResourceBundle enRegexpBundle = ResourceBundle.getBundle("regexes", new Locale("en"));
 
     @Before
     public void prepareValidUkrainianSurnames() {
@@ -114,6 +115,15 @@ public class ControllerTest extends Controller {
     public void testIfValidCellPhone2NumbersAccepted(){
         checkIfEveryValidItemAccepted(validCellPhone2Examples,uaRegexpBundle.getString(RegexContainer.CELL_PHONE2));
     }
+    @Before
+    public void setValidEnglishPatronymicExamples() {
+        validEnglishPatronymicExamples = new String[] {"Junior",""};
+    }
+    @Test
+    public void checkIfValidEnglishPatronymicAccepted() {
+        checkIfEveryValidItemAccepted(validEnglishPatronymicExamples,enRegexpBundle.getString(RegexContainer.PATRONYMIC));
+    }
+
 
     public void checkIfEveryValidItemAccepted(String[] validData, String regex) {
         for (String item : validData) {
