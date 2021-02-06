@@ -63,10 +63,12 @@ public class Controller {
         try {
             notebook.tryToAddNote(note);
         } catch (NotUniqueLoginException e) {
+//            todo add possibility to change user's login if it already exists
             System.err.println(e.getMessage());
             System.err.println(e.getLogin());
         }
     }
+
 
     private void processUserInput() {
         String userInput;
