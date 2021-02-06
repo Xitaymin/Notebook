@@ -18,6 +18,5 @@ public class Notebook {
         noteList.add(note);
     }
 
-//    todo add not unique login exception
 
 }
