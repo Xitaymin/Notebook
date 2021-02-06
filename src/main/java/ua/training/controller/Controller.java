@@ -1,6 +1,7 @@
 package ua.training.controller;
 
 import ua.training.model.Group;
+import ua.training.model.NotUniqueLoginException;
 import ua.training.model.Note;
 import ua.training.model.Notebook;
 import ua.training.view.View;
@@ -59,7 +60,12 @@ public class Controller {
         note.setInitials();
         note.setFormalizedAddress();
         note.setLastModificationDate();
-        notebook.tryToAddNote(note);
+        try {
+            notebook.tryToAddNote(note);
+        } catch (NotUniqueLoginException e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getLogin());
+        }
     }
 
     private void processUserInput() {
