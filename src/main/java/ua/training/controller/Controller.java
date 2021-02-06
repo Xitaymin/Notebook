@@ -59,7 +59,7 @@ public class Controller {
         note.setInitials();
         note.setFormalizedAddress();
         note.setLastModificationDate();
-        notebook.addNote(note);
+        notebook.tryToAddNote(note);
     }
 
     private void processUserInput() {
