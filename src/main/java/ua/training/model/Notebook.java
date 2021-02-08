@@ -16,10 +16,10 @@ public class Notebook {
 
     public void tryToAddNote(Note note) throws NotUniqueLoginException {
         for (DBEmulation dbEntry:DBEmulation.values()) {
-            if (!note.getNick().equals(dbEntry.getLogin())){
-                noteList.add(note);
+            if (note.getNick().equals(dbEntry.getLogin())){
+                throw new NotUniqueLoginException("This login already exists: ",note.getNick());
             }
-            else throw new NotUniqueLoginException("This login already exists: ",note.getNick());
         }
+        noteList.add(note);
     }
 }

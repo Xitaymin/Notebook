@@ -18,7 +18,7 @@ public class Controller {
     private View view;
     private Note note;
     private Notebook notebook;
-    private Locale locale = new Locale("en");
+    private Locale locale = new Locale("ua");
     private ResourceBundle regexBundle = ResourceBundle.getBundle("regexes",locale);
 
 
@@ -69,6 +69,7 @@ public class Controller {
                 changeUserLogin();
             }
         }
+        scanner.close();
     }
 
 
