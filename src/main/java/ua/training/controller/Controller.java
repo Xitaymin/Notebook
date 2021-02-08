@@ -21,6 +21,7 @@ public class Controller {
     private Locale locale = new Locale("ua");
     private ResourceBundle regexBundle = ResourceBundle.getBundle("regexes",locale);
 
+//    todo simple version of controller without usage reflection (with class for storage note data before creation note itself)
 
     public Controller(){
         this.notebook = new Notebook();
