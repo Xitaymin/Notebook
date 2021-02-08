@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public class View {
 
-    private Locale locale = new Locale("ua");
+    private Locale locale = new Locale("en");
     private ResourceBundle messagesBundle = ResourceBundle.getBundle("messages",locale);
     public static final String REQUEST_SURNAME_INPUT = "request_input.surname";
     public static final String REQUEST_NAME_INPUT = "request_input.name";

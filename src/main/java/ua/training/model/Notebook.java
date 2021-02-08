@@ -19,7 +19,7 @@ public class Notebook {
             if (!note.getNick().equals(dbEntry.getLogin())){
                 noteList.add(note);
             }
-            else throw new NotUniqueLoginException("This login already exists ",note.getNick());
+            else throw new NotUniqueLoginException("This login already exists: ",note.getNick());
         }
     }
 }

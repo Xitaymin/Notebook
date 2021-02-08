@@ -18,7 +18,7 @@ public class Controller {
     private View view;
     private Note note;
     private Notebook notebook;
-    private Locale locale = new Locale("ua");
+    private Locale locale = new Locale("en");
     private ResourceBundle regexBundle = ResourceBundle.getBundle("regexes",locale);
 
 
@@ -60,12 +60,14 @@ public class Controller {
         note.setInitials();
         note.setFormalizedAddress();
         note.setLastModificationDate();
-        try {
-            notebook.tryToAddNote(note);
-        } catch (NotUniqueLoginException e) {
-//            todo add possibility to change user's login if it already exists
-            System.err.println(e.getMessage());
-            System.err.println(e.getLogin());
+        while(true) {
+            try {
+                notebook.tryToAddNote(note);
+                break;
+            } catch (NotUniqueLoginException e) {
+                System.err.println(e.getMessage() + e.getLogin());
+                changeUserLogin();
+            }
         }
     }
 
@@ -93,6 +95,16 @@ public class Controller {
                 }
             }
         }
+    }
+
+    private void changeUserLogin(){
+        String userInput;
+        do {
+            askUserEnterField(View.REQUEST_NICKNAME_INPUT);
+            userInput = getUserInput(scanner);
+        }
+        while (!checkIfUserInputValid(regexBundle.getString(RegexContainer.NICKNAME),userInput));
+        note.setNick(userInput);
     }
 
     private void askUserEnterField(String message){
