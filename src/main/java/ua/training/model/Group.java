@@ -1,7 +1,7 @@
 package ua.training.model;
 
 public enum Group {
-    ES("Electronic systems"),MN("Micro and nano technologies");
+    FAMILY("Family members"),WORK("Colleges and supervisors");
 
     private String value;
      Group(String value) {

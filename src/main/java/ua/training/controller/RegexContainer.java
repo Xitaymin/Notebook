@@ -1,8 +1,5 @@
 package ua.training.controller;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 public interface RegexContainer {
 //     String SURNAME = "^[^а-яЭЫЪ][А-ЩЬЮЯа-щьюяІЇЄіїє'\\s-]{1,20}$";
 //     String NAME = "^[^а-яЭЫЪ][А-ЩЬЮЯа-щьюяІЇЄіїє'\\s-]{1,20}$";
@@ -29,6 +26,7 @@ public interface RegexContainer {
      String CELL_PHONE2 = "cell_phone.regexp";
      String EMAIL = "email.regexp";
 //     String EMAIL_ADVANCED = "^[^.\\W][\\w]{5,30}@[\\w-\\.]{1,253}\\.[a-z]{2,3}$";
+     String GROUP = "group.regexp";
      String SKYPE = "skype.regexp";
      String INDEX = "index.regexp";
      String CITY = "city.regexp";

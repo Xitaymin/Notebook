@@ -57,7 +57,7 @@ public class Controller {
     public void makeNote() {
         note = new Note();
         processUserInput();
-        note.setGroup(Group.ES);
+        note.setGroup(Group.FAMILY);
         note.setInitials();
         note.setFormalizedAddress();
         note.setLastModificationDate();
