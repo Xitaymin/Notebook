@@ -1,15 +1,14 @@
 package ua.training.controller;
 
+import ua.training.model.Address;
 import ua.training.model.Group;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class InputNote implements Utility {
     private String surname;
     private String name;
     private String patronymic;
-    private String initials;
     private String nickname;
     private String comment;
     private Enum<Group> group;
@@ -18,89 +17,148 @@ public class InputNote implements Utility {
     private String cellPhone2; //may be absent
     private String email;
     private String skype;
-    private String index;
-    private String city;
-    private String street;
-    private String homeNumber;
-    private String apartmentNumber;
-    private String formalizedAdress;
-//    private final LocalDate noteInputDate;
-    private LocalDate lastModificationDate;
+    private Address address = new Address();
 
-    public boolean trySetSurname(Scanner sc){
+    public boolean trySetSurname(Scanner sc) {
         String userInput = Utility.getUserInput(sc);
-        if(Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.SURNAME),userInput)){
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.SURNAME), userInput)) {
             this.surname = userInput;
             return true;
-        }
-        else return false;
+        } else return false;
     }
-    public boolean trySetName(Scanner sc){
+
+    public boolean trySetName(Scanner sc) {
         String userInput = Utility.getUserInput(sc);
-        if(Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.NAME),userInput)){
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.NAME), userInput)) {
             this.name = userInput;
             return true;
-        }
-        else return false;
+        } else return false;
     }
-    public boolean trySetPatronymic(Scanner sc){
+
+    public boolean trySetPatronymic(Scanner sc) {
         String userInput = Utility.getUserInput(sc);
-        if(Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.PATRONYMIC),userInput)){
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.PATRONYMIC), userInput)) {
             this.patronymic = userInput;
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
-    public void setInitials(){
-        String firstNameLetter = this.getName().substring(0,1);
-        String divider1 = " ";
-        String divider2 = ".";
-        this.initials = Utility.concatenateStrings(false,this.getSurname(),divider1,firstNameLetter,divider2);
-    }
-
-    public boolean trySetNickname(Scanner sc){
+    public boolean trySetNickname(Scanner sc) {
         String userInput = Utility.getUserInput(sc);
-        if(Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.NICKNAME),userInput)){
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.NICKNAME), userInput)) {
             this.nickname = userInput;
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
-    public boolean trySetComment(Scanner sc){
+    public boolean trySetComment(Scanner sc) {
         String userInput = Utility.getUserInput(sc);
-        if(Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.COMMENT),userInput)){
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.COMMENT), userInput)) {
             this.comment = userInput;
             return true;
-        }
-        else return false;
+        } else return false;
     }
-    public boolean trySetGroup(Scanner sc){
+
+    public boolean trySetGroup(Scanner sc) {
         String userInput = Utility.getUserInput(sc);
-        if(Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.GROUP),userInput)){
-            if (locale.getDisplayLanguage() == "en"){
-            this.group = Group.valueOf(userInput);
-            return true;
-        }
-        else if (locale.getDisplayLanguage() == "ua") {
-            if (userInput == "СІМ'Я"){
-                this.group = Group.FAMILY;
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.GROUP), userInput)) {
+            if (locale.getDisplayLanguage().equals("English")) {
+                this.group = Group.valueOf(userInput);
                 return true;
-            }
-            if (userInput == "РОБОТА"){
-                this.group = Group.WORK;
-                return true;
-            }
+            } else if (locale.getDisplayLanguage().equals("ua")) {
+                if (userInput.equals("СІМ'Я")) {
+                    this.group = Group.FAMILY;
+                    return true;
+                }
+                if (userInput.equals("РОБОТА")) {
+                    this.group = Group.WORK;
+                    return true;
+                }
             }
 
         }
-         return false;
+        return false;
     }
 
+    public boolean trySetHomePhone(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.PHONE), userInput)) {
+            this.homePhone = userInput;
+            return true;
+        } else return false;
+    }
 
+    public boolean trySetCellPhone(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.PHONE), userInput)) {
+            this.cellPhone = userInput;
+            return true;
+        } else return false;
+    }
 
+    public boolean trySetCellPhone2(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.CELL_PHONE2), userInput)) {
+            this.cellPhone2 = userInput;
+            return true;
+        } else return false;
+    }
 
+    public boolean trySetEmail(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.EMAIL), userInput)) {
+            this.email = userInput;
+            return true;
+        } else return false;
+    }
+
+    public boolean trySetSkype(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.SKYPE), userInput)) {
+            this.skype = userInput;
+            return true;
+        } else return false;
+    }
+
+    public boolean trySetIndex(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.INDEX), userInput)) {
+            this.address.setIndex(userInput);
+            return true;
+        } else return false;
+    }
+
+    public boolean trySetCity(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.CITY), userInput)) {
+            this.address.setCity(userInput);
+            return true;
+        } else return false;
+    }
+
+    public boolean trySetStreet(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.STREET), userInput)) {
+            this.address.setStreet(userInput);
+            return true;
+        } else return false;
+    }
+
+    public boolean trySetHouseNumber(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.HOUSE), userInput)) {
+            this.address.setHouseNumber(userInput);
+            return true;
+        } else return false;
+    }
+
+    public boolean trySetAppartmentNumber(Scanner sc) {
+        String userInput = Utility.getUserInput(sc);
+        if (Utility.checkIfUserInputValid(regexBundle.getString(RegexContainer.APARTMENT), userInput)) {
+            this.address.setApartmentNumber(userInput);
+            return true;
+        } else return false;
+    }
 
     public String getSurname() {
         return surname;
@@ -112,10 +170,6 @@ public class InputNote implements Utility {
 
     public String getPatronymic() {
         return patronymic;
-    }
-
-    public String getInitials() {
-        return initials;
     }
 
     public String getNickname() {
@@ -150,31 +204,8 @@ public class InputNote implements Utility {
         return skype;
     }
 
-    public String getIndex() {
-        return index;
+    public Address getAddress() {
+        return address;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public String getHomeNumber() {
-        return homeNumber;
-    }
-
-    public String getApartmentNumber() {
-        return apartmentNumber;
-    }
-
-    public String getFormalizedAdress() {
-        return formalizedAdress;
-    }
-
-    public LocalDate getLastModificationDate() {
-        return lastModificationDate;
-    }
 }

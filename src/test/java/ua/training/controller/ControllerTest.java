@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class ControllerTest extends Controller {
+public class ControllerTest implements Utility {
     private String[] validUkrainianSurnameExamples;
     private String[] invalidUkrainianSurnameExamples;
     private String[] validCommentsExamples;
@@ -127,14 +127,14 @@ public class ControllerTest extends Controller {
 
     public void checkIfEveryValidItemAccepted(String[] validData, String regex) {
         for (String item : validData) {
-            Assert.assertTrue(checkIfUserInputValid(regex, item));
+            Assert.assertTrue(Utility.checkIfUserInputValid(regex, item));
             System.out.println(item);
         }
     }
 
     public void checkIfEveryInvalidItemRejected(String[] inValidData, String regex) {
         for (String item : inValidData) {
-            Assert.assertFalse(checkIfUserInputValid(regex, item));
+            Assert.assertFalse(Utility.checkIfUserInputValid(regex, item));
             System.out.println(item);
         }
     }

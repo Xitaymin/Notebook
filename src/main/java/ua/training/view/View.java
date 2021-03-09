@@ -5,11 +5,12 @@ import java.util.ResourceBundle;
 
 public class View {
 
-    private Locale locale = new Locale("ua");
+    private Locale locale = new Locale("en");
     private ResourceBundle messagesBundle = ResourceBundle.getBundle("messages",locale);
     public static final String REQUEST_SURNAME_INPUT = "request_input.surname";
     public static final String REQUEST_NAME_INPUT = "request_input.name";
     public static final String REQUEST_PATRONYMIC_INPUT = "request_input.patronymic";
+    public static final String REQUEST_GROUP_INPUT = "request_input.group";
     public static final String REQUEST_NICKNAME_INPUT = "request_input.nickname";
     public static final String REQUEST_COMMENT_INPUT = "request_input.comment";
     public static final String REQUEST_PHONE_NUMBER_INPUT = "request_input.phone";

@@ -16,18 +16,10 @@ public class Note {
     private String cellPhone2; //may be absent
     private String email;
     private String skype;
-    private String index;
-    private String city;
-    private String street;
-    private String homeNumber;
-    private String apartmentNumber;
+    private Address address;
     private String formalizedAdress;
-    private final LocalDate noteInputDate;
+    private LocalDate noteInputDate;
     private LocalDate lastModificationDate;
-
-    public Note() {
-        this.noteInputDate = LocalDate.now();
-    }
 
     public String getSurname() {
         return surname;
@@ -64,11 +56,10 @@ public class Note {
      * Creates String which consist of surname, space, first letter of the name and dot.
      */
     public void setInitials() {
-        String firstNameLetter = this.getName().substring(0,1);
+        String firstNameLetter = this.getName().substring(0, 1);
         String divider1 = " ";
         String divider2 = ".";
-        this.initials = concatenateStrings(false,this.getSurname(),divider1,firstNameLetter,divider2);
-        setLastModificationDate();
+        this.initials = concatenateStrings(false, this.getSurname(), divider1, firstNameLetter, divider2);
     }
 
     public String getNick() {
@@ -143,6 +134,15 @@ public class Note {
         setLastModificationDate();
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+        setLastModificationDate();
+    }
+
     public String getFormalizedAdress() {
         return formalizedAdress;
     }
@@ -151,14 +151,18 @@ public class Note {
      * Creates String that provides summary address information.
      * String contains index, city name, street name, house number and apartment number separated by space.
      */
-    public void setFormalizedAddress() {
-        this.formalizedAdress = concatenateStrings(true,this.getIndex(),this.getCity(),
-                this.getStreet(),this.getHomeNumber(),this.getApartmentNumber());
-        setLastModificationDate();
+    public void setFormalizedAdress() {
+        this.formalizedAdress = concatenateStrings(true, address.getIndex(), address.getCity(), address.getStreet(),
+                address.getHouseNumber(),
+                address.getApartmentNumber());
     }
 
     public LocalDate getNoteInputDate() {
         return noteInputDate;
+    }
+
+    public void setNoteInputDate(LocalDate noteInputDate) {
+        this.noteInputDate = noteInputDate;
     }
 
     public LocalDate getLastModificationDate() {
@@ -167,51 +171,6 @@ public class Note {
 
     public void setLastModificationDate() {
         this.lastModificationDate = LocalDate.now();
-    }
-
-    public String getIndex() {
-        return index;
-    }
-
-    public void setIndex(String index) {
-        this.index = index;
-        setLastModificationDate();
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-        setLastModificationDate();
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-        setLastModificationDate();
-    }
-
-    public String getHomeNumber() {
-        return homeNumber;
-    }
-
-    public void setHomeNumber(String homeNumber) {
-        this.homeNumber = homeNumber;
-        setLastModificationDate();
-    }
-
-    public String getApartmentNumber() {
-        return apartmentNumber;
-    }
-
-    public void setApartmentNumber(String apartmentNumber) {
-        this.apartmentNumber = apartmentNumber;
-        setLastModificationDate();
     }
 
     @Override
@@ -229,22 +188,19 @@ public class Note {
                 ", cellPhone2='" + cellPhone2 + '\'' +
                 ", email='" + email + '\'' +
                 ", skype='" + skype + '\'' +
-                ", index='" + index + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", homeNumber='" + homeNumber + '\'' +
-                ", apartmentNumber='" + apartmentNumber + '\'' +
                 ", formalizedAdress='" + formalizedAdress + '\'' +
                 ", noteInputDate=" + noteInputDate +
                 ", lastModificationDate=" + lastModificationDate +
                 '}';
     }
 
-    private String concatenateStrings(boolean addSpace, String ...strings) {
+    private String concatenateStrings(boolean addSpace, String... strings) {
         StringBuilder sb = new StringBuilder();
         String option = "";
-        if(addSpace){option = " ";} //if first argument true space after every input string will be added
-        for (String s:strings) {
+        if (addSpace) {
+            option = " ";
+        } //if first argument true space after every input string will be added
+        for (String s : strings) {
             sb.append(s);
             sb.append(option);
         }

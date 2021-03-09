@@ -1,5 +1,6 @@
 package ua.training.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,5 +22,6 @@ public class Notebook {
             }
         }
         noteList.add(note);
+        note.setNoteInputDate(LocalDate.now());
     }
 }

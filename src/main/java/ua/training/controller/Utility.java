@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public interface Utility {
-     Locale locale = new Locale("ua");
+     Locale locale = new Locale("en");
      ResourceBundle regexBundle = ResourceBundle.getBundle("regexes",locale);
 
     static boolean checkIfUserInputValid(String regex, String userInput){
